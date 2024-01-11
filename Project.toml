@@ -1,0 +1,4 @@
+name = "OneBRC"
+uuid = "8b4cbcd5-3efd-4dc1-afb7-3ee364094b24"
+authors = ["Vikas Gorur <vikas@airbase.io>"]
+version = "0.1.0"
