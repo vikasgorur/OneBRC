@@ -25,24 +25,22 @@ generate(1_000_000, "rows.txt")
 
 using Statistics
 
-function calcavg(in::String)::Dict{String, Tuple}
+function calcavg(in::String)::Dict{String, Vector{Float64}}
     "Calculate avg temperature per city"
-    data = Dict{String, Tuple}()
-    # tuple (min, mean, max, n)
+    data = Dict{String, Vector{Float64}}()
+    # vector of (min, mean, max, n)
     open(in) do f
         for line in eachline(f)
             city, temp = split(line, ';')
             temp = parse(Float64, temp)
             if haskey(data, city)
                 min_, mean_, max_, n = data[city]
-                data[city] = (
-                    min(temp, min_),
-                    (mean_ * n + temp) / (n+1),
-                    max(temp, max_),
-                    n+1
-                )
+                data[city][1] = min(temp, min_)
+                data[city][2] = (mean_ * n + temp) / (n+1)
+                data[city][3] = max(temp, max_)
+                data[city][4] = n+1
             else
-                data[city] = (temp, temp, temp, 1)
+                data[city] = [temp, temp, temp, 1]
             end
         end
     end
